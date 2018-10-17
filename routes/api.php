@@ -18,9 +18,26 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/store',"UserController@store");
 
-Route::post('/logs',"UserController@logs");
+Route::post('/register', 'UserController@register');
+Route::post('/login', 'UserController@authenticate');
+
+
+Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::get('/erea', 'UserController@erea');
+});
+
+
+
+
+
+
+
+
+/*Route::get('/erea', function()
+{
+    return Countries::getList('en', 'json');
+});*/
 
 
 
